@@ -1,0 +1,6 @@
+setup.py
+portrait_capturer.egg-info/PKG-INFO
+portrait_capturer.egg-info/SOURCES.txt
+portrait_capturer.egg-info/dependency_links.txt
+portrait_capturer.egg-info/requires.txt
+portrait_capturer.egg-info/top_level.txt

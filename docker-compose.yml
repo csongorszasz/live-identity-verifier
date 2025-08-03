@@ -1,0 +1,58 @@
+services:
+  portrait-capturer:
+    build:
+      context: ./portrait-capturer
+      dockerfile: Dockerfile
+    container_name: portrait-capturer
+    ports:
+      - 8080:8080
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./webrtc-frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - 80:80
+    depends_on:
+      - portrait-capturer
+      - identity-verifier
+    networks:
+      - app-network
+
+  identity-verifier:
+    build:
+      context: ./identity-verifier
+      dockerfile: Dockerfile
+    container_name: identity-verifier
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgres://user:password@db:5432/id_verif_db
+    networks:
+      - app-network
+
+  db:
+    image: postgres:13-alpine
+    container_name: postgres-db
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=id_verif_db
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+  
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres-data:
