@@ -46,9 +46,13 @@ function App() {
     <UploadDropzone
       options={options}
       onUpdate={({ uploadedFiles }) => {
-        docRef.current = uploadedFiles[0];
-        console.log("Document file uploaded:", uploadedFiles[0]);
-        setIsDocumentUploaded(true);
+        if (uploadedFiles.length > 0 && uploadedFiles[0].fileUrl) {
+          docRef.current = uploadedFiles[0];
+          console.log("Document file uploaded:", uploadedFiles[0]);
+          setIsDocumentUploaded(true);
+        } else {
+          console.log("File upload in progress...");
+        }
       }}
       width="100%"
     />
