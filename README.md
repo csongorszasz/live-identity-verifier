@@ -5,7 +5,7 @@ Web-based GUI with real-time webcam streaming for automatic identity verificatio
 their face and their identity card photo, and validating the text content of the identity card.
 
 ## Architecture
-Microservices, orchastrated with Docker Compose.
+Microservices, orchestrated with Docker Compose.
 
 ## Tech stack
 - Backend: Python, WebRTC, OpenCV, dlib, EasyOCR
